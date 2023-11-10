@@ -2,9 +2,9 @@
 
 ## Backend
 
-### Installing using Github
-
 Python 3.8+ is a must
+
+### Local running
 
 1. Clone the repository in the terminal:
 `git clone https://github.com/Nattalli/Barrier-free-map-of-Kyiv.git`
@@ -21,3 +21,18 @@ Python 3.8+ is a must
 7. Install requirements: `pip install -r requirements.txt`
 8. Make migrations: `python manage.py migrate`  
 9. Now you can run it: `python manage.py runserver`
+
+### Running with docker
+Python 3.8+ is a must
+
+1. Clone the repository in the terminal:
+`git clone https://github.com/Nattalli/Barrier-free-map-of-Kyiv.git`
+2. Go to the `backend` folder:
+`cd backend`
+3. Make the following command and populate it with required data:
+`cp .env.example .env`
+4. Run the following commands in the terminal:
+```
+docker-compose build
+docker-compose up
+```
