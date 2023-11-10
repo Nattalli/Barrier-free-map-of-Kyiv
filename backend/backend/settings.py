@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'map',
+    'pointer',
 
     'drf_spectacular',
 ]
