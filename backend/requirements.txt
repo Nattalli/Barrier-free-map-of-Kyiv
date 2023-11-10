@@ -1,6 +1,7 @@
 asgiref==3.7.2
 attrs==23.1.0
 Django==4.1
+django-jazzmin==2.6.0
 djangorestframework==3.14.0
 drf-spectacular==0.26.5
 inflection==0.5.1

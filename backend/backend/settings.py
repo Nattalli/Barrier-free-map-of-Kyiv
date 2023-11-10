@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +58,12 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Independent wheelchair service API',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+    "COMPONENT_SPLIT_RESPONSE": True,
 }
 
 MIDDLEWARE = [
@@ -146,3 +154,55 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# JAZZMIN
+JAZZMIN_SETTINGS = {
+    "site_title": "Admin",
+    "show_ui_builder": False,
+    "site_header": "Independent wheelchair",
+    "site_logo_classes": "img-circle",
+    "welcome_sign": "Welcome to the Independent wheelchair admin panel!",
+    "search_model": "map.street",
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"issues": "map.commitissue"},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "changeform_format": "collapsible",
+    "copyright": "Independent wheelchair admin-panel. Made by"
+    " <a href='https://github.com/Nattalli/Barrier-free-map-of-Kyiv' target='_blank'>25th Team</a>",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": True,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": True,
+    "brand_colour": "navbar-info",
+    "accent": "accent-info",
+    "navbar": "navbar-cyan navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-info",
+    "sidebar_nav_small_text": True,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": True,
+    "theme": "yeti",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+    "actions_sticky_top": False,
+}
