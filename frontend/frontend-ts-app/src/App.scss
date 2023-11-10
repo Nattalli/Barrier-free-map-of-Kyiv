@@ -1,5 +1,12 @@
 .menu-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 10px;
+  background-color: rgba(161, 161, 161, 0.66);
+
+  .link {
+    margin-right: 6px;
+    color: white;
+    font-weight: bold;
+  }
 }

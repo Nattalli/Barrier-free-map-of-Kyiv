@@ -9,8 +9,8 @@ function App() {
       path: "/",
       element: <div>
         <div className="menu-container">
-          <Link to="/admin/list">Admin</Link>
-          <Link to="/user/list">User</Link>
+          <Link className="link" to="/admin/list">Admin</Link>
+          <Link className="link" to="/user/list">User</Link>
         </div>
         <div className="wrapper">
           <Outlet/>
