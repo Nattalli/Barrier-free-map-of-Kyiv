@@ -1,11 +1,12 @@
 asgiref==3.7.2
 attrs==23.1.0
-Django==4.2.7
+Django==4.1
 djangorestframework==3.14.0
 drf-spectacular==0.26.5
 inflection==0.5.1
 jsonschema==4.19.2
 jsonschema-specifications==2023.7.1
+psycopg2==2.9.9
 python-dotenv==1.0.0
 pytz==2023.3.post1
 PyYAML==6.0.1
