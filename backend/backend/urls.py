@@ -20,6 +20,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 api = [
     path("map/", include("map.urls")),
+    path("points/", include("pointer.urls"))
 ]
 
 urlpatterns = [
