@@ -8,6 +8,7 @@ class StreetType(models.TextChoices):
 
 
 class Street(models.Model):
+    id = models.CharField(max_length=100, primary_key=True)
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=10, choices=StreetType.choices)
     sidewalks = models.ManyToManyField('SidewalkMap', related_name='streets')
@@ -19,9 +20,11 @@ class Street(models.Model):
 class AdjacentStreet(models.Model):
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=10, choices=StreetType.choices)
+    id = models.CharField(max_length=100, primary_key=True)
 
 
 class Sidewalk(models.Model):
+    id = models.CharField(max_length=100, primary_key=True)
     issues = models.ManyToManyField('SidewalkIssue', related_name='sidewalks')
     crosswalks = models.ManyToManyField('Crosswalk', related_name='sidewalks')
     width_in_centimeters = models.IntegerField()
@@ -100,3 +103,4 @@ class CrosswalkDirection(models.Model):
     direction = models.CharField(max_length=10, choices=CrosswalkDirectionType.choices)
     type = models.CharField(max_length=10, choices=StreetType.choices)
     name = models.CharField(max_length=255)
+    id = models.CharField(max_length=100, primary_key=True)
