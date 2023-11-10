@@ -9,7 +9,7 @@ class Addition(models.Model):
 
 
 class MapPointCategory(models.Model):
-    title = models.CharField(max_length=127)
+    title = models.CharField(max_length=255)
 
     class Meta:
         verbose_name = 'Map Point Categories'
@@ -19,7 +19,7 @@ class MapPointCategory(models.Model):
 
 
 class MapPoint(models.Model):
-    title = models.CharField(max_length=127)
+    title = models.CharField(max_length=255)
     comment = models.TextField(blank=True, null=True)
     address = models.CharField(max_length=255, default='Unknown')
     longitude = models.FloatField(default=0.0)
