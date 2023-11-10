@@ -11,12 +11,13 @@ class Addition(models.Model):
 class MapPoint(models.Model):
     title = models.CharField(max_length=127)
     comment = models.TextField(blank=True, null=True)
-    address = models.CharField(max_length=255)
-    longitude = models.FloatField()
-    latitude = models.FloatField()
+    address = models.CharField(max_length=255, default='Unknown')
+    longitude = models.FloatField(default=0.0)
+    latitude = models.FloatField(default=0.0)
     source = models.CharField(max_length=255, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     addition = models.ManyToManyField(Addition, blank=True)
+    schedule = models.CharField(max_length=127, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.title} at {self.address}"
