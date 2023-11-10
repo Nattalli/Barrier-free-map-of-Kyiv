@@ -52,7 +52,7 @@ def parse_location_data(text):
     return parsed_data
 
 
-file_path = '5525.pbf'
+file_path = 'parser_data/5525.pbf'
 parsed_text = parse_binary_data(file_path)
 
 if parsed_text:

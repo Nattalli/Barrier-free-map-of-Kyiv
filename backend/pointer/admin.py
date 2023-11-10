@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MapPoint, Addition
+from .models import MapPoint, Addition, MapPointCategory
 
 class AdditionAdmin(admin.ModelAdmin):
     list_display = ['title']
@@ -15,3 +15,4 @@ class MapPointAdmin(admin.ModelAdmin):
 
 admin.site.register(MapPoint, MapPointAdmin)
 admin.site.register(Addition, AdditionAdmin)
+admin.site.register(MapPointCategory)
