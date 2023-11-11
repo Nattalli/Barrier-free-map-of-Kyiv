@@ -2,6 +2,7 @@ import { RouterProvider, Link, createBrowserRouter, Outlet } from 'react-router-
 import './App.scss';
 import AdminStreetList from './admin-street/list/admin-street-list';
 import AdminStreet from './admin-street/admin-street';
+import { MainPage } from './MainPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -41,17 +42,7 @@ function App() {
         },
         {
           path: "/user",
-          element: <div>Hello user list!</div>,
-          children: [
-            {
-              path: "list",
-              element: <div>Hello user view!</div>,
-            },
-            {
-              path: ":code",
-              element: <div>Hello user view!</div>,
-            }
-          ]
+          element: <MainPage/>,
         }
       ]
     }

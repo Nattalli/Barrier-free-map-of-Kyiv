@@ -1,9 +1,25 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
-export const MainPage = () => (
-  <div>
-    <div>Hello world! <Link to='/admin'>Your Name</Link></div>
-    main Page
-  </div>
-)
+export const MainPage = () => {
+  // useEffect(() => {
+  //   const map = window.L.map('map').setView([51.505, -0.09], 13);
+  // }, []);
+
+  return (
+    <div style={{height: 500, width: 500}} id="map">
+      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[51.505, -0.09]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
+  )
+}
