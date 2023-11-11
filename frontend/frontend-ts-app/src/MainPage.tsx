@@ -23,12 +23,13 @@ const getRouteMarkerIcon = () => new Icon({
 });
 
 const createRoutineMachineLayer = (props: any) => {
+  window.L.extend({}, { profile: 'foot'});
   const instance = (window.L as any).Routing.control({
     waypoints: [
       props.startPoint,
       props.endPoint
     ],
-    profile: 'foot',
+      router: new (window.L as any).Routing.OSRMv1({ profile: 'foot' }),
   });
 
   return instance;
@@ -84,7 +85,7 @@ export const MainPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/points').then(data => setPoints(data.data));
+    axios.get('https://independent-wheelchair-6h77.onrender.com/api/points').then(data => setPoints(data.data));
   }, []);
 
   // const points: Point[] = [
