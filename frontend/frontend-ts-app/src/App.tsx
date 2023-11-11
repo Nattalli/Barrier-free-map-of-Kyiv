@@ -8,12 +8,14 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <div>
+      element: <div className="content">
         <div className="menu-container">
-          <Link className="link" to="/admin/list">Admin</Link>
-          <Link className="link" to="/user/list">User</Link>
+          <div className="wrapper">
+            <Link className="link" to="/admin/list">Адміністратор</Link>
+            <Link className="link" to="/user">Користувач</Link>
+          </div>
         </div>
-        <div className="wrapper">
+        <div className="wrapper wrapper-padding">
           <Outlet/>
         </div>
       </div>,
