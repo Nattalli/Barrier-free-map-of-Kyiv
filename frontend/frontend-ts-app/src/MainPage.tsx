@@ -17,14 +17,18 @@ const getMarkerIcon = (title: any) => title === 'Міжквартальні тр
   iconSize: [48, 48],
 });
 
-const createRoutineMachineLayer = () => {
+const getRouteMarkerIcon = () => new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149060.png',
+  iconSize: [48, 48],
+});
+
+const createRoutineMachineLayer = (props: any) => {
   const instance = (window.L as any).Routing.control({
     waypoints: [
-      window.L.latLng(50.46845890135411, 30.515561699867252),
-      window.L.latLng(50.46768916512869, 30.51419096125775),
-      window.L.latLng([50.468523148153984, 30.512848825124244]),
-      window.L.latLng([50.466608953519135, 30.51593858899743])
+      props.startPoint,
+      props.endPoint
     ],
+    profile: 'foot',
   });
 
   return instance;
@@ -73,6 +77,9 @@ const makeGraph = (points: Point[]) => {
 export const MainPage = () => {
   const [points, setPoints] = useState<any[]>([]);
   const [isAddingNewPointMode, setAddingNewPointMode] = useState(false);
+  const [isShowRouteMode, setRouteMode] = useState(false);
+  const [startPoint, setStartPoint] = useState<any>();
+  const [endPoint, setEndPoint] = useState<any>();
 
   const navigate = useNavigate();
 
@@ -99,22 +106,48 @@ export const MainPage = () => {
   }
 
   const handleMapClick = (event: any, map: any) => {
-    if (!isAddingNewPointMode) return;
-    map.flyTo(event.latlng, map.getZoom());
-    // eslint-disable-next-line
-    if (confirm('Далі?')) {
-      console.log(event);
-      navigate(`/create-new-point?lat=${event.latlng.lat}&lng=${event.latlng.lng}`)
+    if (isAddingNewPointMode) {
+      map.flyTo(event.latlng, map.getZoom());
+      // eslint-disable-next-line
+      if (confirm('Далі?')) {
+        console.log(event);
+        navigate(`/create-new-point?lat=${event.latlng.lat}&lng=${event.latlng.lng}`)
+      }
+    };
+    if (isShowRouteMode) {
+      if (!startPoint) {
+        setStartPoint(event.latlng);
+        alert('Виберіть точку призначення');
+        return;
+      }
+      if (!endPoint) {
+        setEndPoint(event.latlng);
+        return;
+      }
     }
+  }
+
+  const handleRouteCancel = () => {
+    setRouteMode(false);
+    setStartPoint(undefined);
+    setEndPoint(undefined);
+  }
+
+  const handleRouteBuild = () => {
+    alert('Виберіть початок маршруту');
+    setRouteMode(true)
   }
 
   console.log(points);
 
   return (
     <div>
+      {!points.length && <div style={{display: "flex", margin: 20, alignItems: 'center', justifyContent: 'center'}}>Завантаження даних карти...</div>}
     <div style={{display: "flex", margin: 20, alignItems: 'center', justifyContent: 'center'}}>
       {isAddingNewPointMode ? <Button type='back' onClick={() => setAddingNewPointMode(false)}>Відмінити</Button>
         : <Button type='success' onClick={handleAddNewPoint}>Додати точку</Button>}
+      {isShowRouteMode ? <Button style={{marginLeft: 20}} type='back' onClick={handleRouteCancel}>Відмінити</Button>
+        : <Button style={{marginLeft: 20}} type='default' onClick={handleRouteBuild}>Побудувати маршрут</Button>}
     </div>
     <div style={{height: 500, width: 500}} id="map">
       <MapContainer center={[50.46869871698446, 30.515297493199174]} zoom={13} scrollWheelZoom={false}>
@@ -129,7 +162,21 @@ export const MainPage = () => {
             </Popup>
           </Marker>
         ))}
-        {/*<RoutingMachine />*/}
+        {startPoint && (
+          <Marker position={[startPoint.lat, startPoint.lng]} icon={getRouteMarkerIcon()}>
+            <Popup>
+              Початок маршруту
+            </Popup>
+          </Marker>
+        )}
+        {endPoint && (
+          <Marker position={[endPoint.lat, endPoint.lng]} icon={getRouteMarkerIcon()}>
+            <Popup>
+              Точка призначення
+            </Popup>
+          </Marker>
+        )}
+        {(startPoint && endPoint) && <RoutingMachine startPoint={startPoint} endPoint={endPoint} />}
         <MapClickEvents onMapClick={handleMapClick} />
       </MapContainer>
     </div>
