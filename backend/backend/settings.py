@@ -211,3 +211,4 @@ JAZZMIN_UI_TWEAKS = {
 }
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+WHITENOISE_IGNORE_MISSING_FILES = True
