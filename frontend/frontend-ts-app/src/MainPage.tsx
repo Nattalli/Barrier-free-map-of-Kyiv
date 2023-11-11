@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leafl
 import { Icon } from 'leaflet';
 import 'leaflet-routing-machine';
 import { createControlComponent } from '@react-leaflet/core';
+import axios from "axios";
 
 const createRoutineMachineLayer = () => {
   const instance = (window.L as any).Routing.control({
@@ -60,16 +61,9 @@ const makeGraph = (points: Point[]) => {
 }
 
 export const MainPage = () => {
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     (window.L as any).Routing.control({
-  //       waypoints: [
-  //         window.L.latLng(50.46869871698446, 30.515297493199174),
-  //         window.L.latLng(50.46768916512869, 30.51419096125775)
-  //       ]
-  //     });
-  //   }, 2000);
-  // }, []);
+  useEffect(() => {
+    axios.get('/api/points')
+  }, []);
 
   const customIcon = new Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png',
