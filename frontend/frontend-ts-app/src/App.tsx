@@ -19,7 +19,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="wrapper wrapper-padding">
+        <div className="wrapper">
           <Outlet/>
         </div>
       </div>,
