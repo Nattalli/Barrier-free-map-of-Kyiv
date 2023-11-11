@@ -4,6 +4,7 @@ import AdminStreetList from './admin-street/list/admin-street-list';
 import AdminStreet from './admin-street/admin-street';
 import { MainPage } from './MainPage';
 import logo from './logo.png';
+import AdminStreetCreator from './admin-street/creator/admin-street-creator';
 
 function App() {
   const router = createBrowserRouter([
@@ -34,7 +35,7 @@ function App() {
             },
             {
               path: "create",
-              element: <div>Hello admin create!</div>,
+              element: <AdminStreetCreator />,
             },
             {
               path: ":code/edit",
