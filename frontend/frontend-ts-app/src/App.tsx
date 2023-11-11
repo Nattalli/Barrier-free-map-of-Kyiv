@@ -19,7 +19,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="wrapper">
+        <div>
           <Outlet/>
         </div>
       </div>,

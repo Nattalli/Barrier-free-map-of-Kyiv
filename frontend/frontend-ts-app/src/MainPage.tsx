@@ -7,6 +7,14 @@ import 'leaflet-routing-machine';
 import { createControlComponent } from '@react-leaflet/core';
 import axios from "axios";
 
+const getMarkerIcon = (title: any) => title === 'Міжквартальні тротуари' ? new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/98/98145.png',
+  iconSize: [24, 24],
+}) : new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png',
+  iconSize: [48, 48],
+});
+
 const createRoutineMachineLayer = () => {
   const instance = (window.L as any).Routing.control({
     waypoints: [
@@ -67,11 +75,6 @@ export const MainPage = () => {
     axios.get('/api/points').then(data => setPoints(data.data));
   }, []);
 
-  const customIcon = new Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png',
-    iconSize: [48, 48],
-  });
-
   // const points: Point[] = [
   //   { label: 'A', geocode: [50.46845890135411, 30.515561699867252] },
   //   { label: 'B', geocode: [50.46768916512869, 30.51419096125775] },
@@ -85,15 +88,17 @@ export const MainPage = () => {
 
   // console.log(makeGraph(points));
 
+  console.log(points);
+
   return (
     <div style={{height: 500, width: 500}} id="map">
-      <MapContainer center={[50.46869871698446, 30.515297493199174]} zoom={20} scrollWheelZoom={false}>
+      <MapContainer center={[50.46869871698446, 30.515297493199174]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {points.map((point, i) => (
-          <Marker position={[point.latitude, point.longitude]} icon={customIcon} key={i}>
+          <Marker position={[point.latitude, point.longitude]} icon={getMarkerIcon(point.title)} key={i}>
             <Popup>
               {point.title}
             </Popup>
