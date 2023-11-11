@@ -6,6 +6,8 @@ import { Icon } from 'leaflet';
 import 'leaflet-routing-machine';
 import { createControlComponent } from '@react-leaflet/core';
 import axios from "axios";
+import Button from 'devextreme-react/button';
+import { useNavigate } from 'react-router-dom';
 
 const getMarkerIcon = (title: any) => title === 'Міжквартальні тротуари' ? new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/512/98/98145.png',
@@ -30,9 +32,9 @@ const createRoutineMachineLayer = () => {
 
 const RoutingMachine = createControlComponent(createRoutineMachineLayer);
 
-function MyComponent() {
+function MapClickEvents({onMapClick}: any) {
   const map = useMapEvent('click', (event) => {
-    console.log(event.latlng);
+    onMapClick(event, map)
   });
   return null
 }
@@ -70,6 +72,9 @@ const makeGraph = (points: Point[]) => {
 
 export const MainPage = () => {
   const [points, setPoints] = useState<any[]>([]);
+  const [isAddingNewPointMode, setAddingNewPointMode] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('/api/points').then(data => setPoints(data.data));
@@ -88,9 +93,29 @@ export const MainPage = () => {
 
   // console.log(makeGraph(points));
 
+  const handleAddNewPoint = () => {
+    alert('Щоб продовжити, виберіть нову точку на мапі');
+    setAddingNewPointMode(true)
+  }
+
+  const handleMapClick = (event: any, map: any) => {
+    if (!isAddingNewPointMode) return;
+    map.flyTo(event.latlng, map.getZoom());
+    // eslint-disable-next-line
+    if (confirm('Далі?')) {
+      console.log(event);
+      navigate(`/create-new-point?lat=${event.latlng.lat}&lng=${event.latlng.lng}`)
+    }
+  }
+
   console.log(points);
 
   return (
+    <div>
+    <div style={{display: "flex", margin: 20, alignItems: 'center', justifyContent: 'center'}}>
+      {isAddingNewPointMode ? <Button type='back' onClick={() => setAddingNewPointMode(false)}>Відмінити</Button>
+        : <Button type='success' onClick={handleAddNewPoint}>Додати точку</Button>}
+    </div>
     <div style={{height: 500, width: 500}} id="map">
       <MapContainer center={[50.46869871698446, 30.515297493199174]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
@@ -105,8 +130,9 @@ export const MainPage = () => {
           </Marker>
         ))}
         {/*<RoutingMachine />*/}
-        <MyComponent />
+        <MapClickEvents onMapClick={handleMapClick} />
       </MapContainer>
+    </div>
     </div>
   )
 }
