@@ -213,10 +213,10 @@ JAZZMIN_UI_TWEAKS = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://knavescythe-k6wi4m--103115948988892.stormkit.dev/",
+    "https://knavescythe-k6wi4m.stormkit.dev/",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
-    "https://knavescythe-k6wi4m--103115948988892.stormkit.dev/",
+    "https://knavescythe-k6wi4m.stormkit.dev/",
 ]
