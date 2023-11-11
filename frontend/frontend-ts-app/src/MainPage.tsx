@@ -34,7 +34,30 @@ type Point = {
   geocode: Geocode;
 }
 
-const calcDistance = (g1: Geocode, g2: Geocode) => Math.sqrt(Math.pow(g1[0] - g2[0], 2) + Math.pow(g1[1] - g2[1], 2));
+const calcDistance = (g1: Geocode, g2: Geocode) => Math.sqrt(Math.pow(g1[0] - g2[0], 2) + Math.pow(g1[1] - g2[1], 2)) * 100000;
+
+const MIN_GRAPH_DISTANCE = 50;
+
+const makeGraph = (points: Point[]) => {
+  const graph = {} as any;
+  points.forEach(currentPoint => {
+    graph[currentPoint.label] = {};
+    let haveConnection = false;
+    let maxDistance = MIN_GRAPH_DISTANCE;
+    while (!haveConnection) {
+      points.forEach(neighborPoint => {
+        if (currentPoint === neighborPoint) return;
+        const distanceBetweenPoints = calcDistance(currentPoint.geocode, neighborPoint.geocode);
+        if (distanceBetweenPoints < maxDistance) {
+          graph[currentPoint.label][neighborPoint.label] = distanceBetweenPoints;
+          haveConnection = true;
+        }
+      });
+      maxDistance += 10;
+    }
+  });
+  return graph;
+}
 
 export const MainPage = () => {
   // useEffect(() => {
@@ -64,7 +87,7 @@ export const MainPage = () => {
     { label: 'H', geocode: [50.46719725726207, 30.519486911985595] },
   ];
 
-  console.log(calcDistance([50.468523148153984, 30.512848825124244], [50.46768916512869, 30.51419096125775]) * 100000);
+  console.log(makeGraph(points));
 
   return (
     <div style={{height: 500, width: 500}} id="map">
@@ -80,7 +103,7 @@ export const MainPage = () => {
             </Popup>
           </Marker>
         ))}
-        <RoutingMachine />
+        {/*<RoutingMachine />*/}
         <MyComponent />
       </MapContainer>
     </div>
