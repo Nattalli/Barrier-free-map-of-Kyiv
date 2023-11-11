@@ -3,6 +3,7 @@ import './App.scss';
 import AdminStreetList from './admin-street/list/admin-street-list';
 import AdminStreet from './admin-street/admin-street';
 import { MainPage } from './MainPage';
+import logo from './logo.png';
 
 function App() {
   const router = createBrowserRouter([
@@ -10,9 +11,12 @@ function App() {
       path: "/",
       element: <div className="content">
         <div className="menu-container">
-          <div className="wrapper">
-            <Link className="link" to="/admin/list">Адміністратор</Link>
-            <Link className="link" to="/user">Користувач</Link>
+          <div className="wrapper wrapper-menu">
+            <Link className="link" to="/">Головна</Link>
+            <div className="app-logo">
+              <Link className="link" to="/admin/list">Адміністратор</Link>
+              <Link className="link" to="/user">Користувач</Link>
+            </div>
           </div>
         </div>
         <div className="wrapper wrapper-padding">
@@ -41,6 +45,13 @@ function App() {
               element: <div>Hello admin edit!</div>,
             }
           ]
+        },
+        {
+          path: "/",
+          element: <div className="logo-container">
+            <div className="app-title">Незалежний вершник</div>
+            <img src={logo} className="app-logo" alt="logo" />
+          </div>
         },
         {
           path: "/user",
