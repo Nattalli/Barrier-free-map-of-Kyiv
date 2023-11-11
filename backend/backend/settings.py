@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'pointer',
 
     'drf_spectacular',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -68,6 +69,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -208,3 +210,13 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False,
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://knavescythe-k6wi4m--103115948988892.stormkit.dev/",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "https://knavescythe-k6wi4m--103115948988892.stormkit.dev/",
+]
