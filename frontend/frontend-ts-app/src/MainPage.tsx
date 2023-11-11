@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet'
@@ -61,8 +61,10 @@ const makeGraph = (points: Point[]) => {
 }
 
 export const MainPage = () => {
+  const [points, setPoints] = useState<any[]>([]);
+
   useEffect(() => {
-    axios.get('/api/points')
+    axios.get('/api/points').then(data => setPoints(data.data));
   }, []);
 
   const customIcon = new Icon({
@@ -70,18 +72,18 @@ export const MainPage = () => {
     iconSize: [48, 48],
   });
 
-  const points: Point[] = [
-    { label: 'A', geocode: [50.46845890135411, 30.515561699867252] },
-    { label: 'B', geocode: [50.46768916512869, 30.51419096125775] },
-    { label: 'C', geocode: [50.468523148153984, 30.512848825124244] },
-    { label: 'D', geocode: [50.46922639472987, 30.513925369453368] },
-    { label: 'E', geocode: [50.46992963756902, 30.514980654685615] },
-    { label: 'F', geocode: [50.466608953519135, 30.51593858899743] },
-    { label: 'G', geocode: [50.46798394013522, 30.51810229287689] },
-    { label: 'H', geocode: [50.46719725726207, 30.519486911985595] },
-  ];
+  // const points: Point[] = [
+  //   { label: 'A', geocode: [50.46845890135411, 30.515561699867252] },
+  //   { label: 'B', geocode: [50.46768916512869, 30.51419096125775] },
+  //   { label: 'C', geocode: [50.468523148153984, 30.512848825124244] },
+  //   { label: 'D', geocode: [50.46922639472987, 30.513925369453368] },
+  //   { label: 'E', geocode: [50.46992963756902, 30.514980654685615] },
+  //   { label: 'F', geocode: [50.466608953519135, 30.51593858899743] },
+  //   { label: 'G', geocode: [50.46798394013522, 30.51810229287689] },
+  //   { label: 'H', geocode: [50.46719725726207, 30.519486911985595] },
+  // ];
 
-  console.log(makeGraph(points));
+  // console.log(makeGraph(points));
 
   return (
     <div style={{height: 500, width: 500}} id="map">
@@ -91,9 +93,9 @@ export const MainPage = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {points.map((point, i) => (
-          <Marker position={point.geocode} icon={customIcon} key={i}>
+          <Marker position={[point.latitude, point.longitude]} icon={customIcon} key={i}>
             <Popup>
-              {point.label}
+              {point.title}
             </Popup>
           </Marker>
         ))}
