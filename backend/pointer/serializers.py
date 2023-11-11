@@ -18,7 +18,7 @@ class AdditionSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Addition
+        model = MapPointCategory
         fields = ('title',)
 
 
